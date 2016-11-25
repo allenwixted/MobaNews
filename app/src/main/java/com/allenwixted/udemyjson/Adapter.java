@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,6 +83,7 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             //move to new activity
             Context context = itemView.getContext();
             Intent showArticleIntent = new Intent(context, ArticleActivity.class);
+            showArticleIntent.putExtra("title", "Here goes the passed data");
             context.startActivity(showArticleIntent);
         }
     }
