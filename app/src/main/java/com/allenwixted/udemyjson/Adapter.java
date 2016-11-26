@@ -2,6 +2,7 @@ package com.allenwixted.udemyjson;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
 
     private LayoutInflater layoutInflator;
-    List<Article> articleData = Collections.emptyList();
+    static List<Article> articleData = Collections.emptyList();
 
     public Adapter(Context context, List<Article> articleData){
         layoutInflator = LayoutInflater.from(context);
@@ -55,7 +56,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
 
     public static class mViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView image;
         TextView title;
         TextView time;
         TextView date;
@@ -79,10 +79,37 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
         @Override
         public void onClick(View itemView) {
             Log.i("CLICK", "CLICK" + getPosition());
+            String passedTitle = null;
+            String passedAuthor = null;
+            String passedDate = null;
+            String passedViews = null;
+            String passedComments = null;
+            String passedBody = null;
+            String passedTime = null;
+            Bitmap passedBigImage = null;
+
+            if(articleData.size()!=0){
+                passedTitle = articleData.get(getPosition()).getTitle();
+                passedAuthor = articleData.get(getPosition()).getAuthor();
+                passedDate = articleData.get(getPosition()).getDate();
+                passedViews = articleData.get(getPosition()).getViews();
+                passedComments = articleData.get(getPosition()).getComments();
+                passedBody = articleData.get(getPosition()).getBody();
+                passedTime = articleData.get(getPosition()).getTime();
+                passedBigImage = articleData.get(getPosition()).getBigImage();
+            }
             //move to new activity
             Context context = itemView.getContext();
             Intent showArticleIntent = new Intent(context, ArticleActivity.class);
-            showArticleIntent.putExtra("title", "Here goes the passed data");
+            showArticleIntent.putExtra("Title", passedTitle);
+            showArticleIntent.putExtra("Author", passedAuthor);
+            showArticleIntent.putExtra("Date", passedDate);
+            showArticleIntent.putExtra("Views", passedViews);
+            showArticleIntent.putExtra("Comments", passedComments);
+            showArticleIntent.putExtra("Body", passedBody);
+            showArticleIntent.putExtra("Time", passedTime);
+            showArticleIntent.putExtra("Image", passedBigImage);
+
             context.startActivity(showArticleIntent);
         }
     }

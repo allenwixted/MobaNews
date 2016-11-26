@@ -68,13 +68,16 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         protected Bitmap doInBackground(String... urls) {
 
             try {
-                //convert downloaded image to bitmap
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream inputStreamImages = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStreamImages);
-                return myBitmap;
+
+                for(int i = 0; i < urls.length; i++){
+                    //convert downloaded image to bitmap
+                    URL url = new URL(urls[i]);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+                    InputStream inputStreamImages = connection.getInputStream();
+                    Bitmap myBitmap = BitmapFactory.decodeStream(inputStreamImages);
+                    return myBitmap;
+                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -114,24 +117,14 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
                 Bitmap thumbImage = taskDLThumb.execute(jsonPart.getString("thumb")).get();
 
                 ImgDownloader taskDLBig = new ImgDownloader();
-                Bitmap bigImage = taskDLBig.execute(jsonPart.getString("image")).get();
+                Bitmap bigImage = null;
+                bigImage = taskDLBig.execute(jsonPart.getString("image")).get();
 
                 newArticle.setThumbnailImage(thumbImage);
-                newArticle.setBigImage(bigImage);
+                newArticle.setBigImage(thumbImage);
+
 
                 articlesArray.add(x, newArticle);
-
-                /*
-                JSONObject jsonPart = jsonArray.getJSONObject(x);
-                Log.i("Title", jsonPart.getString("title"));
-                Log.i("Author", jsonPart.getString("author"));
-                Log.i("Date", String.valueOf(jsonPart.getInt("published_at")));
-                Log.i("Views", String.valueOf(jsonPart.getInt("views")));
-                Log.i("Comments", String.valueOf(jsonPart.getInt("comments")));
-                Log.i("Thumbnail", jsonPart.getString("thumb"));
-                Log.i("Image", jsonPart.getString("image"));
-                Log.i("Body", jsonPart.getString("article_body"));
-                */
             }
         } catch (JSONException e) {
             e.printStackTrace();
