@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">UdemyJSON</string>
+    <string name="title">Title</string>
+    <string name="_00_00">00:00</string>
+    <string name="_23rd_nov">23rd Nov</string>
+    <string name="views">Views</string>
+    <string name="comments">Comments</string>
 </resources>

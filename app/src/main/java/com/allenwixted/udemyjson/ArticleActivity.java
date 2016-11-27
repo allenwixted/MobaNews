@@ -3,8 +3,11 @@ package com.allenwixted.udemyjson;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by allenwixted on 24/11/2016.
@@ -24,7 +27,7 @@ public class ArticleActivity extends AppCompatActivity {
         String comments = getIntent().getStringExtra("Comments");
         String body = getIntent().getStringExtra("Body");
         String time = getIntent().getStringExtra("Time");
-        Bitmap image = getIntent().getParcelableExtra("Image");
+        String image = getIntent().getStringExtra("Image");
 
         TextView titleTV = (TextView) findViewById(R.id.articleTitle);
         TextView authorTV = (TextView) findViewById(R.id.articleAuthor);
@@ -43,6 +46,7 @@ public class ArticleActivity extends AppCompatActivity {
         commentsTV.setText("Comments: " +comments);
         bodyTV.setText(body);
         timeTV.setText("Time: " + time);
-        imageTV.setImageBitmap(image);
+        //imageTV.setImageBitmap(image);
+        Picasso.with(this).load(image).into(imageTV);
     }
 }

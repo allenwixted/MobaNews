@@ -78,7 +78,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
 
         @Override
         public void onClick(View itemView) {
-            Log.i("CLICK", "CLICK" + getPosition());
             String passedTitle = null;
             String passedAuthor = null;
             String passedDate = null;
@@ -86,6 +85,7 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             String passedComments = null;
             String passedBody = null;
             String passedTime = null;
+            String passedImageURL = null;
             Bitmap passedBigImage = null;
 
             if(articleData.size()!=0){
@@ -97,6 +97,7 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
                 passedBody = articleData.get(getPosition()).getBody();
                 passedTime = articleData.get(getPosition()).getTime();
                 passedBigImage = articleData.get(getPosition()).getBigImage();
+                passedImageURL = articleData.get(getPosition()).getPhoto();
             }
             //move to new activity
             Context context = itemView.getContext();
@@ -108,7 +109,8 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             showArticleIntent.putExtra("Comments", passedComments);
             showArticleIntent.putExtra("Body", passedBody);
             showArticleIntent.putExtra("Time", passedTime);
-            showArticleIntent.putExtra("Image", passedBigImage);
+            //showArticleIntent.putExtra("Image", passedBigImage);
+            showArticleIntent.putExtra("Image", passedImageURL);
 
             context.startActivity(showArticleIntent);
         }
