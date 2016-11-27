@@ -62,32 +62,6 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    public class ImgDownloader extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-
-            try {
-
-                for(int i = 0; i < urls.length; i++){
-                    //convert downloaded image to bitmap
-                    URL url = new URL(urls[i]);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.connect();
-                    InputStream inputStreamImages = connection.getInputStream();
-                    Bitmap myBitmap = BitmapFactory.decodeStream(inputStreamImages);
-                    return myBitmap;
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
     //called when doInBackground is completed and passed the result
     @Override
     protected void onPostExecute(String result) {
@@ -95,7 +69,6 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
         try {
             JSONArray jsonArray = new JSONArray(result);
-
 
             for(int x = 0; x < jsonArray.length(); x++){
 
@@ -112,25 +85,9 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
                 newArticle.setPhoto(jsonPart.getString("image"));
                 newArticle.setBody(jsonPart.getString("article_body"));
 
-
-                ImgDownloader taskDLThumb = new ImgDownloader();
-                Bitmap thumbImage = taskDLThumb.execute(jsonPart.getString("thumb")).get();
-
-                ImgDownloader taskDLBig = new ImgDownloader();
-                Bitmap bigImage = null;
-                bigImage = taskDLBig.execute(jsonPart.getString("image")).get();
-
-                newArticle.setThumbnailImage(thumbImage);
-                newArticle.setBigImage(thumbImage);
-
-
                 articlesArray.add(x, newArticle);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         MainActivity.adapter.notifyDataSetChanged();

@@ -68,7 +68,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
         TextView views;
         TextView comments;
         ImageView thumbnailImage;
-        ImageView bigImage;
 
         public mViewHolder(View itemView) {
             super(itemView);
@@ -78,7 +77,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             views = (TextView) itemView.findViewById(R.id.views);
             comments= (TextView) itemView.findViewById(R.id.comments);
             thumbnailImage = (ImageView) itemView.findViewById(R.id.imageViewRV);
-            //bigImage = (ImageView) itemView.findViewById(R.id.imageViewRV);
             thumbnailImage.setOnClickListener(this);
         }
 
@@ -92,7 +90,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             String passedBody = null;
             String passedTime = null;
             String passedImageURL = null;
-            Bitmap passedBigImage = null;
 
             if(articleData.size()!=0){
                 passedTitle = articleData.get(getPosition()).getTitle();
@@ -102,7 +99,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
                 passedComments = articleData.get(getPosition()).getComments();
                 passedBody = articleData.get(getPosition()).getBody();
                 passedTime = articleData.get(getPosition()).getTime();
-                passedBigImage = articleData.get(getPosition()).getBigImage();
                 passedImageURL = articleData.get(getPosition()).getPhoto();
             }
             //move to new activity
@@ -115,7 +111,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             showArticleIntent.putExtra("Comments", passedComments);
             showArticleIntent.putExtra("Body", passedBody);
             showArticleIntent.putExtra("Time", passedTime);
-            //showArticleIntent.putExtra("Image", passedBigImage);
             showArticleIntent.putExtra("Image", passedImageURL);
 
             context.startActivity(showArticleIntent);

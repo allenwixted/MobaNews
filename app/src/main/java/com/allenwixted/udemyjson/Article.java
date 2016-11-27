@@ -27,13 +27,6 @@ public class Article {
     private Bitmap thumbnailImage;
     private Bitmap bigImage;
 
-    public void setThumbnailImage(Bitmap aThumbnailImage){
-        thumbnailImage = aThumbnailImage;
-    }
-
-    public void setBigImage(Bitmap aBitmap){
-        bigImage = aBitmap;
-    }
 
     public void setTitle(String aTitle){
         title = aTitle;
@@ -122,11 +115,4 @@ public class Article {
         return time;
     }
 
-    public Bitmap getThumbnailImage(){
-        return thumbnailImage;
-    }
-
-    public Bitmap getBigImage(){
-        return bigImage;
-    }
 }
