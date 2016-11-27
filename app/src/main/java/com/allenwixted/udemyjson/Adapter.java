@@ -51,7 +51,6 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
         holder.time.setText(currentArticle.getTime());
         holder.comments.setText(currentArticle.getComments());
         holder.views.setText(currentArticle.getViews());
-        //holder.thumbnailImage.setImageBitmap(currentArticle.getThumbnailImage());
         Picasso.with(context).load(currentArticle.getThumbnail()).into(holder.thumbnailImage);
     }
 
@@ -77,7 +76,7 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
             views = (TextView) itemView.findViewById(R.id.views);
             comments= (TextView) itemView.findViewById(R.id.comments);
             thumbnailImage = (ImageView) itemView.findViewById(R.id.imageViewRV);
-            thumbnailImage.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
