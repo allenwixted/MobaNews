@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -22,9 +24,11 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
 
     private LayoutInflater layoutInflator;
     static List<Article> articleData = Collections.emptyList();
+    Context context;
 
     public Adapter(Context context, List<Article> articleData){
         layoutInflator = LayoutInflater.from(context);
+        this.context = context;
         this.articleData = articleData;
     }
 
@@ -40,13 +44,15 @@ public class Adapter extends RecyclerView.Adapter <Adapter.mViewHolder>{
 
     @Override
     public void onBindViewHolder(mViewHolder holder, int position) {
+
         Article currentArticle = articleData.get(position);
         holder.title.setText(currentArticle.getTitle());
         holder.date.setText(currentArticle.getDate());
         holder.time.setText(currentArticle.getTime());
         holder.comments.setText(currentArticle.getComments());
         holder.views.setText(currentArticle.getViews());
-        holder.thumbnailImage.setImageBitmap(currentArticle.getThumbnailImage());
+        //holder.thumbnailImage.setImageBitmap(currentArticle.getThumbnailImage());
+        Picasso.with(context).load(currentArticle.getThumbnail()).into(holder.thumbnailImage);
     }
 
     @Override
